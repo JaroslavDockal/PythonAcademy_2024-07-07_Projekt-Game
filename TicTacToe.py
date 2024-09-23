@@ -1,3 +1,18 @@
+def printIntro():
+    """
+    Prints the introduction to the Tic-Tac-Toe game.
+    """
+    print("============================================")
+    print("Welcome to Tic-Tac-Toe!")
+    print("============================================")
+    print("GAME RULES:")
+    print("Each player can place one mark (or stone)")
+    print("per turn on the 3x3 grid. The WINNER is")
+    print("who succeeds in placing three of their")
+    print("marks in a horizontal, vertical or diagonal row.")
+    print("============================================")
+    print("Let's start the game!")
+
 def initializeBoard():
     """
     Initializes and returns a 3x3 Tic-Tac-Toe board as a list of lists.
@@ -80,10 +95,7 @@ def ticTacToeGame():
     Runs the Tic-Tac-Toe game. Players X and O take turns entering their move, and the board
     is updated after each valid move. The game continues until there is a winner or a tie.
     """
-    print("============================================")
-    print("Welcome to Tic-Tac-Toe!")
-    print("============================================")
-
+    printIntro()
     board = initializeBoard()
     currentPlayer = 'X'
     moveMapping = {
@@ -110,7 +122,9 @@ def ticTacToeGame():
 
         if winner:
             drawBoard(board)
-            print(f"Player {winner} wins!")
+            print("============================================")
+            print(f"Congratulations, Player {winner} wins!")
+            print("============================================")
             break
         elif all(all(cell != ' ' for cell in row) for row in board):
             drawBoard(board)
