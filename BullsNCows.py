@@ -3,8 +3,10 @@ import time
 
 
 def generateSecretNumber():
-    return str(random.randint(1023, 9876))
-
+    digits = random.sample(range(10), 4)
+    if digits[0] == 0:
+        digits[0], digits[1] = digits[1], digits[0]
+    return ''.join(map(str, digits))
 
 def validateGuess(guess, secretNumber):
     return guess.isdigit() and len(guess) == 4
