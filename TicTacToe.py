@@ -1,13 +1,39 @@
 def initializeBoard():
+    """
+    Initializes and returns a 3x3 Tic-Tac-Toe board as a list of lists.
+    Each cell in the board is initialized to a space character (' ').
+
+    Returns:
+        list: A 3x3 list representing the Tic-Tac-Toe board.
+    """
     return [[' ' for _ in range(3)] for _ in range(3)]
 
+
 def drawBoard(board):
+    """
+    Draws the current state of the Tic-Tac-Toe board.
+
+    Args:
+        board (list): A 3x3 list representing the Tic-Tac-Toe board.
+    """
     for i in range(3):
         print("+---+---+---+")
         print(f"| {board[i][0]} | {board[i][1]} | {board[i][2]} |")
     print("+---+---+---+")
 
+
 def validateMove(board, move):
+    """
+    Validates whether the player's move is allowed (i.e., the spot is not already taken).
+    Checks for valid input and ensures that the cell is within bounds and empty.
+
+    Args:
+        board (list): A 3x3 list representing the Tic-Tac-Toe board.
+        move (tuple): A tuple (row, col) representing the player's desired move.
+
+    Returns:
+        bool: True if the move is valid, False otherwise.
+    """
     try:
         row, col = move
         if board[row][col] == ' ':
@@ -22,11 +48,22 @@ def validateMove(board, move):
         print("Invalid input. Choose a number between 1 and 9.")
         return False
 
+
 def checkWinner(board):
+    """
+    Checks if there is a winner on the Tic-Tac-Toe board.
+    A player wins by having three of their marks ('X' or 'O') in a row, column, or diagonal.
+
+    Args:
+        board (list): A 3x3 list representing the Tic-Tac-Toe board.
+
+    Returns:
+        str: 'X' if player X wins, 'O' if player O wins, or None if there is no winner.
+    """
     lines = (
-        board[0], board[1], board[2],  # rows
-        [board[i][0] for i in range(3)], [board[i][1] for i in range(3)], [board[i][2] for i in range(3)],  # columns
-        [board[i][i] for i in range(3)], [board[i][2-i] for i in range(3)]  # diagonals
+        board[0], board[1], board[2],  # Rows
+        [board[i][0] for i in range(3)], [board[i][1] for i in range(3)], [board[i][2] for i in range(3)],  # Columns
+        [board[i][i] for i in range(3)], [board[i][2 - i] for i in range(3)]  # Diagonals
     )
 
     for line in lines:
@@ -37,7 +74,12 @@ def checkWinner(board):
 
     return None
 
+
 def ticTacToeGame():
+    """
+    Runs the Tic-Tac-Toe game. Players X and O take turns entering their move, and the board
+    is updated after each valid move. The game continues until there is a winner or a tie.
+    """
     print("============================================")
     print("Welcome to Tic-Tac-Toe!")
     print("============================================")
