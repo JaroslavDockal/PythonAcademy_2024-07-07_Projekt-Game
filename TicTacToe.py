@@ -2,9 +2,6 @@ def initializeBoard():
     return [[' ' for _ in range(3)] for _ in range(3)]
 
 def drawBoard(board):
-    print("============================================")
-    print("Welcome to Tic-Tac-Toe!")
-    print("============================================")
     for i in range(3):
         print("+---+---+---+")
         print(f"| {board[i][0]} | {board[i][1]} | {board[i][2]} |")
@@ -41,6 +38,10 @@ def checkWinner(board):
     return None
 
 def ticTacToeGame():
+    print("============================================")
+    print("Welcome to Tic-Tac-Toe!")
+    print("============================================")
+
     board = initializeBoard()
     currentPlayer = 'X'
     moveMapping = {
