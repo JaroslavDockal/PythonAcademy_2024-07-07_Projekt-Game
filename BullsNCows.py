@@ -16,18 +16,30 @@ def generateSecretNumber():
     return ''.join(map(str, digits))
 
 
-def validateGuess(guess, secretNumber):
+def validateGuess(guess):
     """
-    Validates the player's guess. The guess must be a 4-digit number.
+    Validates the player's guess. The guess must be a 4-digit number,
+    must not start with 0, and must not contain duplicate digits.
 
     Args:
         guess (str): The player's guessed number.
-        secretNumber (str): The secret number (not used in validation here).
 
     Returns:
         bool: True if the guess is a valid 4-digit number, False otherwise.
     """
-    return guess.isdigit() and len(guess) == 4  # Ensure guess is a 4-digit number
+    if not guess.isdigit():
+        print("Invalid input. Please enter only numbers.")
+        return False
+    if len(guess) != 4:
+        print("Invalid input. Please enter exactly 4 digits.")
+        return False
+    if guess[0] == '0':
+        print("Invalid input. The number cannot start with 0.")
+        return False
+    if len(set(guess)) != 4:
+        print("Invalid input. The digits must not repeat.")
+        return False
+    return True
 
 
 def evaluateGuess(guess, secretNumber):
@@ -67,13 +79,12 @@ def bullsAndCowsGame():
 
     while True:
         guess = input("Enter your 4-digit guess: ")
+        attempts += 1
 
-        if not validateGuess(guess, secretNumber):
-            print("Invalid input. Please enter a 4-digit number.")
+        if not validateGuess(guess):
             continue
 
         bulls, cows = evaluateGuess(guess, secretNumber)
-        attempts += 1
 
         if bulls == 4:
             endTime = time.time()
@@ -82,7 +93,9 @@ def bullsAndCowsGame():
             print(f"Time taken: {timeTaken} seconds.")
             break
 
-        print(f"Bulls: {bulls}, Cows: {cows}")
+        bull_str = "bull" if bulls == 1 else "bulls"
+        cow_str = "cow" if cows == 1 else "cows"
+        print(f"{bulls} {bull_str}, {cows} {cow_str}")
 
 
 if __name__ == "__main__":
