@@ -13,6 +13,7 @@ def printIntro():
     print("============================================")
     print("Let's start the game!")
 
+
 def initializeBoard():
     """
     Initializes and returns a 3x3 Tic-Tac-Toe board as a list of lists.
@@ -31,10 +32,9 @@ def drawBoard(board):
     Args:
         board (list): A 3x3 list representing the Tic-Tac-Toe board.
     """
-    for i in range(3):
-        print("+---+---+---+")
-        print(f"| {board[i][0]} | {board[i][1]} | {board[i][2]} |")
-    print("+---+---+---+")
+    print("\n".join(["+---+---+---+",
+                     "\n".join([f"| {' | '.join(row)} |" for row in board]),
+                     "+---+---+---+"]))
 
 
 def validateMove(board, move):
@@ -49,18 +49,11 @@ def validateMove(board, move):
     Returns:
         bool: True if the move is valid, False otherwise.
     """
-    try:
-        row, col = move
-        if board[row][col] == ' ':
-            return True
-        else:
-            print("That spot is taken. Choose an empty spot.")
-            return False
-    except IndexError:
-        print("Invalid input. Choose a number between 1 and 9.")
-        return False
-    except ValueError:
-        print("Invalid input. Choose a number between 1 and 9.")
+    row, col = move
+    if board[row][col] == ' ':
+        return True
+    else:
+        print("That spot is taken. Choose an empty spot.")
         return False
 
 
@@ -88,6 +81,19 @@ def checkWinner(board):
             return 'O'
 
     return None
+
+
+def checkDraw(board):
+    """
+    Checks if the game is a draw by verifying if all the cells are filled.
+
+    Args:
+        board (list): A 3x3 list representing the Tic-Tac-Toe board.
+
+    Returns:
+        bool: True if the game is a draw, False otherwise.
+    """
+    return all(all(cell != ' ' for cell in row) for row in board)
 
 
 def ticTacToeGame():
@@ -126,7 +132,8 @@ def ticTacToeGame():
             print(f"Congratulations, Player {winner} wins!")
             print("============================================")
             break
-        elif all(all(cell != ' ' for cell in row) for row in board):
+
+        if checkDraw(board):
             drawBoard(board)
             print("It's a tie!")
             break
