@@ -44,19 +44,23 @@ def main():
     """
     Main function to handle the game selection logic.
     Continuously displays the menu until the user chooses to exit.
+    Includes handling of KeyboardInterrupt to allow graceful exit.
     """
-    while True:
-        choice = displayMenu()
+    try:
+        while True:
+            choice = displayMenu()
 
-        if choice == '1':
-            playBullsAndCows()
-        elif choice == '2':
-            playTicTacToe()
-        elif choice == '3':
-            print("Exiting...")
-            break
-        else:
-            print("Invalid choice. Please enter a number from 1 to 3.")
+            if choice == '1':
+                playBullsAndCows()
+            elif choice == '2':
+                playTicTacToe()
+            elif choice == '3':
+                print("Exiting...")
+                break
+            else:
+                print("Invalid choice. Please enter a number from 1 to 3.")
+    except KeyboardInterrupt:
+        print("\nProgram interrupted. Exiting the game.")
 
 
 if __name__ == "__main__":
